@@ -5,7 +5,7 @@ config.vm.define "nhakkaouS" do |config|
     config.vm.box_check_update = true
     config.vm.network "public_network", ip: "192.168.42.110"
     config.vm.hostname = "nhakkaouS"
-    config.vm.provision "k3s shell script", type: "shell",privileged: false,
-    path: "k3s.sh"
+    config.vm.provision "k3s shell script", type: "shell", privileged: false,
+    path: "script.sh"
   end
 end
