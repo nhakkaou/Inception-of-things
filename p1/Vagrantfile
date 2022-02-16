@@ -11,6 +11,9 @@ Vagrant.configure("2") do |config|
     end
     sv.vm.provision "k3s shell script", type: "shell",privileged: false,
     path: "script.sh"
+    sv.trigger.after :up do |trigger|
+      trigger.run = {inline: "bash -c vagrant ssh nhakkaouS && sudo cat /var/lib/rancher/k3s/server/token > ./token"}
+    end
   end
   # Second Machine
   config.vm.define "nhakkaouSW" do |sw|
