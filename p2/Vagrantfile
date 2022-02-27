@@ -1,10 +1,13 @@
 Vagrant.configure("2") do |config|
-config.vm.define "nhakkaouS" do |config|
-    config.vm.box = "centos/7"
-    config.vm.box_check_update = true
-    config.vm.network "public_network", ip: "192.168.42.110"
-    config.vm.hostname = "nhakkaouS"
-    config.vm.provision "k3s shell script", type: "shell", privileged: false,
-    path: "script.sh"
+  config.vm.box = "centos/7"
+  config.vbguest.installer_options = { allow_kernel_upgrade: true }
+  config.vm.define "nhakkaouS" do |sv|
+    sv.vm.network "private_network", ip: "192.168.42.110"
+    sv.vm.hostname = "nhakkaouS"
+    sv.vm.provider "virtualbox" do |v|
+      v.memory = 1024
+      v.cpus = 1
+    end
+    sv.vm.provision "shell", path: "script.sh"
   end
 end
