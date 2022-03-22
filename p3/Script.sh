@@ -17,11 +17,10 @@ sudo wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh 
 echo "Install Kubectl"
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-sudo k3d cluster create mycluster -p 8080:80@loadbalancer -p 8888:30080@loadbalancer  --k3s-arg "--disable=traefik@server:0"
+sudo k3d cluster create mycluster -p 8080:80@loadbalancer -p 8888:8888@loadbalancer  --k3s-arg "--disable=traefik@server:0"
 
 echo "Create Namesapces"
 sudo kubectl create namespace argocd
-sudo kubectl create namespace dev
 
 echo " Setup Argo CD "
 sudo kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
@@ -30,3 +29,5 @@ echo " Waiting Argo CD Setup "
 params="-n argocd -l app.kubernetes.io/name=argocd-server --timeout=10m"
 sudo kubectl wait --for=condition=available deployment $params
 sudo kubectl wait --for=condition=ready pod $params
+
+// Key Argocd V21pY2xNZT1mUktGdjN6ag==

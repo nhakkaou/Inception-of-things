@@ -11,7 +11,7 @@ spec:
     path: tmp
   destination:
     server: https://kubernetes.default.svc
-    namespace: myapp
+    namespace: dev
   syncPolicy:
     syncOptions:
       - CreateNamspace=true
