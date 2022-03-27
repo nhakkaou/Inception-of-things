@@ -30,4 +30,11 @@ params="-n argocd -l app.kubernetes.io/name=argocd-server --timeout=10m"
 sudo kubectl wait --for=condition=available deployment $params
 sudo kubectl wait --for=condition=ready pod $params
 
+echo "Config Argocd patched"
+sudo kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+
+echo "Get Creditentials"
+sudo kubectl get secret argocd-initial-admin-secret -n argocd -o yaml | grep password: | awk '{print $2}' | base64 --decode > password.txt
+
+
 // Key Argocd V21pY2xNZT1mUktGdjN6ag==
