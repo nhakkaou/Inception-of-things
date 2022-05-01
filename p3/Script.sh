@@ -21,6 +21,7 @@ sudo k3d cluster create mycluster -p 8080:80@loadbalancer -p 8888:8888@loadbalan
 
 echo "Create Namesapces"
 sudo kubectl create namespace argocd
+sudo kubectl create namespace dev
 
 echo " Setup Argo CD "
 sudo kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
