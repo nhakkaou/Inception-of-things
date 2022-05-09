@@ -1,15 +1,15 @@
+# echo "Install Docker"
+# if you already have a docker installation, you can skip this step
+# sudo apt-get remove docker docker-engine docker.io containerd runc
+# sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
-echo "Install Docker"
-sudo apt-get remove docker docker-engine docker.io containerd runc
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+# # Use the following command to set up the stable repository
+# echo \
+#   "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+#   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-# Use the following command to set up the stable repository
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+# sudo apt-get update
+# sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 
 echo "Install K3d"
 sudo wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash
@@ -36,5 +36,3 @@ sudo kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalanc
 echo "Get Creditentials"
 sudo kubectl get secret argocd-initial-admin-secret -n argocd -o yaml | grep password: | awk '{print $2}' | base64 --decode > password.txt
 
-
-// Key Argocd V21pY2xNZT1mUktGdjN6ag==
